@@ -46,13 +46,25 @@ class ClientProjectController extends Controller
             'description' => ['nullable', 'string'],
             'start_date' => ['nullable', 'date'],
             'deadline' => ['nullable', 'date'],
+            'cancellation_reason' => ['nullable', 'required_if:status,cancelled', 'string'],
         ]);
+
+        if ($validated['status'] !== 'cancelled') {
+            $validated['cancellation_reason'] = null;
+        }
 
         $clientProject = ClientProject::create($validated);
 
         return redirect()
             ->route('dashboard.client-projects.edit', $clientProject)
             ->with('success', 'Project created successfully.');
+    }
+
+    public function show(ClientProject $clientProject): View
+    {
+        $clientProject->load(['customer', 'invoices']);
+
+        return view('dashboard.client-projects.show', compact('clientProject'));
     }
 
     public function edit(ClientProject $clientProject): View
@@ -74,7 +86,12 @@ class ClientProjectController extends Controller
             'description' => ['nullable', 'string'],
             'start_date' => ['nullable', 'date'],
             'deadline' => ['nullable', 'date'],
+            'cancellation_reason' => ['nullable', 'required_if:status,cancelled', 'string'],
         ]);
+
+        if ($validated['status'] !== 'cancelled') {
+            $validated['cancellation_reason'] = null;
+        }
 
         $clientProject->update($validated);
 

@@ -55,7 +55,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     Route::delete('/customers/{customer}/notes/{note}', [NoteController::class, 'destroy'])->name('customers.notes.destroy');
 
     // CRM - Client Projects
-    Route::resource('client-projects', ClientProjectController::class)->except(['show']);
+    Route::resource('client-projects', ClientProjectController::class);
 
     // CRM - Invoices (nested under client projects)
     Route::get('/client-projects/{client_project}/invoices/create', [InvoiceController::class, 'create'])->name('client-projects.invoices.create');

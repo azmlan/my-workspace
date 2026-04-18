@@ -119,6 +119,7 @@
                                     {{ $project->invoices->count() }} فاتورة
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap text-left text-sm font-medium">
+                                    <a href="{{ route('dashboard.client-projects.show', $project) }}" class="text-gray-600 hover:text-gray-900 ml-3">عرض</a>
                                     <a href="{{ route('dashboard.client-projects.edit', $project) }}" class="text-blue-600 hover:text-blue-900">تعديل</a>
                                 </td>
                             </tr>

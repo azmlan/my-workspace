@@ -14,6 +14,7 @@ class Testimonial extends Model implements HasMedia
         'client_name',
         'client_role',
         'client_company',
+        'email',
         'body',
         'rating',
         'is_visible',

@@ -69,6 +69,11 @@
                                     @endif
                                 </p>
                             @endif
+                            @if($testimonial->email)
+                                <a href="mailto:{{ $testimonial->email }}" class="text-indigo-400 text-xs hover:text-indigo-300 transition-colors">
+                                    {{ $testimonial->email }}
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

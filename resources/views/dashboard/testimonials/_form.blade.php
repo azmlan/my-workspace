@@ -29,6 +29,15 @@
     </div>
 
     <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني (اختياري)</label>
+        <input type="email" name="email" id="email" value="{{ old('email', $testimonial->email ?? '') }}"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('email') border-red-500 @enderror">
+        @error('email')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <div>
         <label for="body" class="block text-sm font-medium text-gray-700">المحتوى</label>
         <textarea name="body" id="body" rows="5"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('body') border-red-500 @enderror">{{ old('body', $testimonial->body ?? '') }}</textarea>
