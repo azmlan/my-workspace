@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\ClientProjectController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\HeroSettingController;
+use App\Http\Controllers\Dashboard\ClientProjectFileController;
 use App\Http\Controllers\Dashboard\InvoiceController;
 use App\Http\Controllers\Dashboard\NoteController;
 use App\Http\Controllers\Dashboard\PortfolioProjectController;
@@ -58,6 +59,11 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     Route::resource('client-projects', ClientProjectController::class);
     Route::post('/client-projects/{clientProject}/cancel', [ClientProjectController::class, 'cancel'])->name('client-projects.cancel');
     Route::get('/client-projects/{clientProject}/cancellation-document', [ClientProjectController::class, 'cancellationDocument'])->name('client-projects.cancellation-document');
+
+    // CRM - Client Project Files
+    Route::post('/client-projects/{clientProject}/files', [ClientProjectFileController::class, 'store'])->name('client-projects.files.store');
+    Route::get('/client-projects/{clientProject}/files/{file}/download', [ClientProjectFileController::class, 'download'])->name('client-projects.files.download');
+    Route::delete('/client-projects/{clientProject}/files/{file}', [ClientProjectFileController::class, 'destroy'])->name('client-projects.files.destroy');
 
     // CRM - Invoices (nested under client projects)
     Route::get('/client-projects/{client_project}/invoices/create', [InvoiceController::class, 'create'])->name('client-projects.invoices.create');

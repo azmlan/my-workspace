@@ -112,6 +112,82 @@
         @endif
     </div>
 
+    <!-- Files -->
+    <div class="bg-white shadow rounded-lg p-6 mb-6" x-data="{ showDeleteModal: false, deleteUrl: '' }">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-gray-900">الملفات المرفقة</h2>
+        </div>
+
+        @if($clientProject->files->count())
+            <ul class="divide-y divide-gray-100 mb-6">
+                @foreach($clientProject->files as $file)
+                    <li class="flex items-center justify-between py-3">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold {{ $file->extensionColor() }}">
+                                {{ $file->extensionLabel() }}
+                            </span>
+                            <span class="text-sm text-gray-800 truncate">{{ $file->original_name }}</span>
+                            <span class="text-xs text-gray-400 shrink-0">{{ $file->formattedSize() }}</span>
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0 mr-4">
+                            <a href="{{ route('dashboard.client-projects.files.download', [$clientProject, $file]) }}"
+                                class="text-sm text-blue-600 hover:text-blue-800">تحميل</a>
+                            @if($clientProject->status !== \App\Enums\ClientProjectStatus::Cancelled)
+                                <button type="button"
+                                    @click="deleteUrl = '{{ route('dashboard.client-projects.files.destroy', [$clientProject, $file]) }}'; showDeleteModal = true"
+                                    class="text-sm text-red-600 hover:text-red-800">حذف</button>
+                            @endif
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        @else
+            <p class="text-sm text-gray-500 mb-4">لا توجد ملفات مرفقة بعد.</p>
+        @endif
+
+        @if($clientProject->status !== \App\Enums\ClientProjectStatus::Cancelled)
+            <form action="{{ route('dashboard.client-projects.files.store', $clientProject) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="flex items-center gap-3">
+                    <input type="file" name="file" accept=".pdf,.docx,.xlsx,.png,.jpg,.jpeg,.gif,.webp" required
+                        class="block w-full text-sm text-gray-500 file:ml-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    <button type="submit" class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-md">
+                        رفع الملف
+                    </button>
+                </div>
+                @error('file')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+                <p class="mt-1 text-xs text-gray-400">PDF، Word، Excel، أو صورة — الحد الأقصى 10 ميجابايت</p>
+            </form>
+        @endif
+
+        <!-- Delete file confirmation modal -->
+        <div x-show="showDeleteModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div x-show="showDeleteModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-gray-500/75 transition-opacity" @click="showDeleteModal = false"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div x-show="showDeleteModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="relative inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6">
+                        <p class="text-sm text-gray-700">هل أنت متأكد من حذف هذا الملف؟ لا يمكن التراجع عن هذا الإجراء.</p>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 flex flex-row-reverse gap-3">
+                        <form :action="deleteUrl" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-sm font-medium text-white hover:bg-red-700">
+                                حذف
+                            </button>
+                        </form>
+                        <button type="button" @click="showDeleteModal = false" class="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            إلغاء
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Invoices -->
     <div class="bg-white shadow rounded-lg p-6">
         <div class="flex justify-between items-center mb-4">

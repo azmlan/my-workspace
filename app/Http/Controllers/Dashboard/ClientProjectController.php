@@ -58,7 +58,7 @@ class ClientProjectController extends Controller
 
     public function show(ClientProject $clientProject): View
     {
-        $clientProject->load(['customer', 'invoices']);
+        $clientProject->load(['customer', 'invoices', 'files']);
 
         return view('dashboard.client-projects.show', compact('clientProject'));
     }

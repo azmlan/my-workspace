@@ -40,6 +40,11 @@ class ClientProject extends Model
         return $this->hasMany(Invoice::class);
     }
 
+    public function files(): HasMany
+    {
+        return $this->hasMany(ClientProjectFile::class);
+    }
+
     public function isOverdue(): bool
     {
         if (!$this->deadline) {
