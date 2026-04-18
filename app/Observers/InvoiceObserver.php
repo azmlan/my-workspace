@@ -21,7 +21,7 @@ class InvoiceObserver
     public function updated(Invoice $invoice): void
     {
         if ($invoice->wasChanged('status')) {
-            $oldStatus = \App\Enums\InvoiceStatus::from($invoice->getOriginal('status'));
+            $oldStatus = \App\Enums\InvoiceStatus::from($invoice->getRawOriginal('status'));
             AuditLog::log(
                 action: 'status_changed',
                 subjectType: 'Invoice',

@@ -216,6 +216,7 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
+                            <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">رقم الفاتورة</th>
                             <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">المبلغ</th>
                             <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الحالة</th>
                             <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">تاريخ الاستحقاق</th>
@@ -225,23 +226,49 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($clientProject->invoices as $invoice)
-                            <tr>
+                            <tr class="{{ $invoice->isOverdue() ? 'bg-red-50' : '' }}">
+                                <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-700">
+                                    {{ $invoice->invoice_number ? '#' . $invoice->invoice_number : '-' }}
+                                </td>
                                 <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
                                     {{ number_format($invoice->amount, 2) }} {{ $invoice->currency }}
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $invoiceStatusColors[$invoice->status->color()] }}">
-                                        {{ $invoice->status->label() }}
-                                    </span>
+                                    @if($invoice->isOverdue())
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                            متأخرة
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $invoiceStatusColors[$invoice->status->color()] }}">
+                                            {{ $invoice->status->label() }}
+                                        </span>
+                                    @endif
                                 </td>
-                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                                <td class="px-4 py-3 whitespace-nowrap text-sm {{ $invoice->isOverdue() ? 'text-red-600 font-medium' : 'text-gray-500' }}">
                                     {{ $invoice->due_date?->format('M d, Y') ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
                                     {{ $invoice->paid_at?->format('M d, Y') ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap text-left text-sm font-medium">
-                                    <a href="{{ route('dashboard.client-projects.invoices.edit', [$clientProject, $invoice]) }}" class="text-blue-600 hover:text-blue-900">تعديل</a>
+                                    <div class="flex items-center gap-3 justify-end">
+                                        <a href="{{ route('dashboard.client-projects.invoices.pdf', [$clientProject, $invoice]) }}"
+                                           target="_blank"
+                                           class="text-gray-600 hover:text-gray-900" title="تصدير PDF">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                            </svg>
+                                        </a>
+                                        @if($invoice->status !== \App\Enums\InvoiceStatus::Paid)
+                                            <form action="{{ route('dashboard.client-projects.invoices.mark-paid', [$clientProject, $invoice]) }}" method="POST" class="inline">
+                                                @csrf
+                                                <button type="submit" class="text-green-600 hover:text-green-900 text-xs font-medium" title="تحديد كمدفوعة">
+                                                    ✓ مدفوعة
+                                                </button>
+                                            </form>
+                                        @endif
+                                        <a href="{{ route('dashboard.client-projects.invoices.edit', [$clientProject, $invoice]) }}" class="text-blue-600 hover:text-blue-900">تعديل</a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -250,13 +277,30 @@
             </div>
 
             <div class="mt-4 pt-4 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-600">المجموع:</span>
-                    <span class="font-medium text-gray-900">{{ number_format($clientProject->invoices->sum('amount'), 2) }} ريال</span>
+                <div>
+                    <div class="text-sm text-gray-600 mb-1">المجموع:</div>
+                    @foreach($clientProject->invoices->groupBy('currency') as $currency => $group)
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">{{ $currency }}</span>
+                            <span class="font-medium text-gray-900">{{ number_format($group->sum('amount'), 2) }} {{ $currency }}</span>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-green-600">المدفوع:</span>
-                    <span class="font-medium text-green-600">{{ number_format($clientProject->invoices->where('status', \App\Enums\InvoiceStatus::Paid)->sum('amount'), 2) }} ريال</span>
+                <div>
+                    <div class="text-sm text-green-600 mb-1">المدفوع:</div>
+                    @php
+                        $paidGroups = $clientProject->invoices
+                            ->where('status', \App\Enums\InvoiceStatus::Paid)
+                            ->groupBy('currency');
+                    @endphp
+                    @forelse($paidGroups as $currency => $group)
+                        <div class="flex justify-between text-sm">
+                            <span class="text-green-500">{{ $currency }}</span>
+                            <span class="font-medium text-green-600">{{ number_format($group->sum('amount'), 2) }} {{ $currency }}</span>
+                        </div>
+                    @empty
+                        <div class="text-sm text-gray-400">—</div>
+                    @endforelse
                 </div>
             </div>
         @else

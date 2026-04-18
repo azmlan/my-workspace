@@ -74,5 +74,7 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     Route::post('/client-projects/{client_project}/invoices', [InvoiceController::class, 'store'])->name('client-projects.invoices.store');
     Route::get('/client-projects/{client_project}/invoices/{invoice}/edit', [InvoiceController::class, 'edit'])->name('client-projects.invoices.edit');
     Route::put('/client-projects/{client_project}/invoices/{invoice}', [InvoiceController::class, 'update'])->name('client-projects.invoices.update');
+    Route::post('/client-projects/{client_project}/invoices/{invoice}/mark-paid', [InvoiceController::class, 'markAsPaid'])->name('client-projects.invoices.mark-paid');
+    Route::get('/client-projects/{client_project}/invoices/{invoice}/pdf', [InvoiceController::class, 'exportPdf'])->name('client-projects.invoices.pdf');
     Route::delete('/client-projects/{client_project}/invoices/{invoice}', [InvoiceController::class, 'destroy'])->name('client-projects.invoices.destroy');
 });
