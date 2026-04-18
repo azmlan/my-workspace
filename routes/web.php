@@ -56,6 +56,8 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
 
     // CRM - Client Projects
     Route::resource('client-projects', ClientProjectController::class);
+    Route::post('/client-projects/{clientProject}/cancel', [ClientProjectController::class, 'cancel'])->name('client-projects.cancel');
+    Route::get('/client-projects/{clientProject}/cancellation-document', [ClientProjectController::class, 'cancellationDocument'])->name('client-projects.cancellation-document');
 
     // CRM - Invoices (nested under client projects)
     Route::get('/client-projects/{client_project}/invoices/create', [InvoiceController::class, 'create'])->name('client-projects.invoices.create');

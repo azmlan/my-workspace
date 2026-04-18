@@ -13,8 +13,14 @@ use Illuminate\View\View;
 
 class InvoiceController extends Controller
 {
-    public function create(ClientProject $clientProject): View
+    public function create(ClientProject $clientProject): View|RedirectResponse
     {
+        if ($clientProject->status === \App\Enums\ClientProjectStatus::Cancelled) {
+            return redirect()
+                ->route('dashboard.client-projects.show', $clientProject)
+                ->with('info', 'لا يمكن إضافة فواتير لمشروع ملغي.');
+        }
+
         $statuses = InvoiceStatus::cases();
 
         return view('dashboard.invoices.create', compact('clientProject', 'statuses'));
@@ -22,6 +28,12 @@ class InvoiceController extends Controller
 
     public function store(Request $request, ClientProject $clientProject): RedirectResponse
     {
+        if ($clientProject->status === \App\Enums\ClientProjectStatus::Cancelled) {
+            return redirect()
+                ->route('dashboard.client-projects.show', $clientProject)
+                ->with('info', 'لا يمكن إضافة فواتير لمشروع ملغي.');
+        }
+
         $validated = $request->validate([
             'amount' => ['required', 'numeric', 'min:0'],
             'currency' => ['required', 'string', 'max:10'],

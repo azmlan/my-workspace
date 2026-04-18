@@ -18,6 +18,7 @@ class ClientProject extends Model
         'start_date',
         'deadline',
         'cancellation_reason',
+        'cancellation_document_path',
     ];
 
     protected function casts(): array

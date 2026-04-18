@@ -1,4 +1,4 @@
-<div class="space-y-6" x-data="{ isCancelled: '{{ old('status', ($clientProject->status ?? \App\Enums\ClientProjectStatus::Lead)->value) }}' === 'cancelled' }">
+<div class="space-y-6">
     <div>
         <label for="customer_id" class="block text-sm font-medium text-gray-700">العميل <span class="text-red-500">*</span></label>
         <select name="customer_id" id="customer_id" required
@@ -27,27 +27,20 @@
 
         <div>
             <label for="status" class="block text-sm font-medium text-gray-700">الحالة <span class="text-red-500">*</span></label>
-            <select name="status" id="status" required @change="isCancelled = $event.target.value === 'cancelled'"
+            <select name="status" id="status" required
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('status') border-red-500 @enderror">
                 @foreach($statuses as $status)
-                    <option value="{{ $status->value }}" {{ old('status', ($clientProject->status ?? \App\Enums\ClientProjectStatus::Lead)->value) === $status->value ? 'selected' : '' }}>
-                        {{ $status->label() }}
-                    </option>
+                    @if($status !== \App\Enums\ClientProjectStatus::Cancelled)
+                        <option value="{{ $status->value }}" {{ old('status', ($clientProject->status ?? \App\Enums\ClientProjectStatus::Lead)->value) === $status->value ? 'selected' : '' }}>
+                            {{ $status->label() }}
+                        </option>
+                    @endif
                 @endforeach
             </select>
             @error('status')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
-    </div>
-
-    <div x-show="isCancelled" x-cloak>
-        <label for="cancellation_reason" class="block text-sm font-medium text-gray-700">سبب الإلغاء <span class="text-red-500">*</span></label>
-        <textarea name="cancellation_reason" id="cancellation_reason" rows="3" :required="isCancelled"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('cancellation_reason') border-red-500 @enderror">{{ old('cancellation_reason', $clientProject->cancellation_reason ?? '') }}</textarea>
-        @error('cancellation_reason')
-            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-        @enderror
     </div>
 
     <div>

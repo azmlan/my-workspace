@@ -28,6 +28,7 @@
             </a>
             <h1 class="text-2xl font-bold text-gray-900">{{ $clientProject->title }}</h1>
         </div>
+        @if($clientProject->status !== \App\Enums\ClientProjectStatus::Cancelled)
         <div class="flex gap-3">
             <a href="{{ route('dashboard.client-projects.invoices.create', $clientProject) }}" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md">
                 إضافة فاتورة
@@ -36,6 +37,7 @@
                 تعديل المشروع
             </a>
         </div>
+        @endif
     </div>
 
     <!-- Project Details -->
@@ -86,11 +88,27 @@
                 <dd class="mt-1 text-sm text-gray-900 whitespace-pre-wrap">{{ $clientProject->description }}</dd>
             </div>
         @endif
-        @if($clientProject->status === \App\Enums\ClientProjectStatus::Cancelled && $clientProject->cancellation_reason)
-            <div class="mt-6">
-                <dt class="text-sm font-medium text-gray-500">سبب الإلغاء</dt>
-                <dd class="mt-1 text-sm text-red-700 whitespace-pre-wrap">{{ $clientProject->cancellation_reason }}</dd>
-            </div>
+        @if($clientProject->status === \App\Enums\ClientProjectStatus::Cancelled)
+            @if($clientProject->cancellation_reason)
+                <div class="mt-6">
+                    <dt class="text-sm font-medium text-gray-500">سبب الإلغاء</dt>
+                    <dd class="mt-1 text-sm text-red-700 whitespace-pre-wrap">{{ $clientProject->cancellation_reason }}</dd>
+                </div>
+            @endif
+            @if($clientProject->cancellation_document_path)
+                <div class="mt-4">
+                    <dt class="text-sm font-medium text-gray-500">المستند الداعم</dt>
+                    <dd class="mt-1">
+                        <a href="{{ route('dashboard.client-projects.cancellation-document', $clientProject) }}" target="_blank"
+                            class="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                            </svg>
+                            عرض المستند
+                        </a>
+                    </dd>
+                </div>
+            @endif
         @endif
     </div>
 

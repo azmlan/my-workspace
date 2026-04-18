@@ -8,6 +8,7 @@ use App\Models\ClientProject;
 use App\Models\Customer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -46,12 +47,7 @@ class ClientProjectController extends Controller
             'description' => ['nullable', 'string'],
             'start_date' => ['nullable', 'date'],
             'deadline' => ['nullable', 'date'],
-            'cancellation_reason' => ['nullable', 'required_if:status,cancelled', 'string'],
         ]);
-
-        if ($validated['status'] !== 'cancelled') {
-            $validated['cancellation_reason'] = null;
-        }
 
         $clientProject = ClientProject::create($validated);
 
@@ -67,8 +63,14 @@ class ClientProjectController extends Controller
         return view('dashboard.client-projects.show', compact('clientProject'));
     }
 
-    public function edit(ClientProject $clientProject): View
+    public function edit(ClientProject $clientProject): View|RedirectResponse
     {
+        if ($clientProject->status === ClientProjectStatus::Cancelled) {
+            return redirect()
+                ->route('dashboard.client-projects.show', $clientProject)
+                ->with('info', 'لا يمكن تعديل مشروع ملغي.');
+        }
+
         $clientProject->load(['customer', 'invoices']);
         $customers = Customer::orderBy('name')->get();
         $statuses = ClientProjectStatus::cases();
@@ -78,6 +80,12 @@ class ClientProjectController extends Controller
 
     public function update(Request $request, ClientProject $clientProject): RedirectResponse
     {
+        if ($clientProject->status === ClientProjectStatus::Cancelled) {
+            return redirect()
+                ->route('dashboard.client-projects.show', $clientProject)
+                ->with('info', 'لا يمكن تعديل مشروع ملغي.');
+        }
+
         $validated = $request->validate([
             'customer_id' => ['required', 'exists:customers,id'],
             'title' => ['required', 'string', 'max:255'],
@@ -86,18 +94,50 @@ class ClientProjectController extends Controller
             'description' => ['nullable', 'string'],
             'start_date' => ['nullable', 'date'],
             'deadline' => ['nullable', 'date'],
-            'cancellation_reason' => ['nullable', 'required_if:status,cancelled', 'string'],
         ]);
-
-        if ($validated['status'] !== 'cancelled') {
-            $validated['cancellation_reason'] = null;
-        }
 
         $clientProject->update($validated);
 
         return redirect()
             ->route('dashboard.client-projects.edit', $clientProject)
             ->with('success', 'Project updated successfully.');
+    }
+
+    public function cancel(Request $request, ClientProject $clientProject): RedirectResponse
+    {
+        $request->validate([
+            'cancellation_reason' => ['required', 'string'],
+            'cancellation_document' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:5120'],
+        ]);
+
+        $documentPath = null;
+        if ($request->hasFile('cancellation_document')) {
+            $documentPath = $request->file('cancellation_document')
+                ->store('cancellation-documents/' . $clientProject->id, 'public');
+        }
+
+        $clientProject->update([
+            'status' => ClientProjectStatus::Cancelled,
+            'cancellation_reason' => $request->input('cancellation_reason'),
+            'cancellation_document_path' => $documentPath,
+        ]);
+
+        return redirect()
+            ->route('dashboard.client-projects.show', $clientProject)
+            ->with('success', 'تم إلغاء المشروع.');
+    }
+
+    public function cancellationDocument(ClientProject $clientProject): mixed
+    {
+        if (!$clientProject->cancellation_document_path) {
+            abort(404);
+        }
+
+        if (!Storage::disk('public')->exists($clientProject->cancellation_document_path)) {
+            abort(404);
+        }
+
+        return Storage::disk('public')->response($clientProject->cancellation_document_path);
     }
 
     public function destroy(ClientProject $clientProject): RedirectResponse
