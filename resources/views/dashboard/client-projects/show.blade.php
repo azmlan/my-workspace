@@ -61,8 +61,22 @@
                 </dd>
             </div>
             <div>
-                <dt class="text-sm font-medium text-gray-500">النوع</dt>
-                <dd class="mt-1 text-sm text-gray-900">{{ $clientProject->type ?? '-' }}</dd>
+                <dt class="text-sm font-medium text-gray-500">المنصة</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                    @php
+                        $platformLabel = collect(config('project_types.platforms'))->firstWhere('value', $clientProject->platform)['label'] ?? null;
+                    @endphp
+                    {{ $platformLabel ?? '-' }}
+                </dd>
+            </div>
+            <div>
+                <dt class="text-sm font-medium text-gray-500">المجال</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                    @php
+                        $domainLabel = collect(config('project_types.domains'))->firstWhere('value', $clientProject->domain)['label'] ?? null;
+                    @endphp
+                    {{ $domainLabel ?? '-' }}
+                </dd>
             </div>
             <div>
                 <dt class="text-sm font-medium text-gray-500">تاريخ البدء</dt>

@@ -43,13 +43,30 @@
         </div>
     </div>
 
-    <div>
-        <label for="type" class="block text-sm font-medium text-gray-700">النوع</label>
-        <input type="text" name="type" id="type" value="{{ old('type', $clientProject->type ?? '') }}" placeholder="مثال: تطوير ويب، استشارات"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('type') border-red-500 @enderror">
-        @error('type')
-            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-        @enderror
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">المنصة</label>
+            <x-searchable-select
+                name="platform"
+                :options="$platforms"
+                :selected="old('platform', $clientProject->platform ?? '')"
+                placeholder="اختر المنصة..." />
+            @error('platform')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">المجال</label>
+            <x-searchable-select
+                name="domain"
+                :options="$domains"
+                :selected="old('domain', $clientProject->domain ?? '')"
+                placeholder="اختر المجال..." />
+            @error('domain')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
     </div>
 
     <div>

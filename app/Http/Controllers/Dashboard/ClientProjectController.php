@@ -33,20 +33,26 @@ class ClientProjectController extends Controller
         $customers = Customer::orderBy('name')->get();
         $statuses = ClientProjectStatus::cases();
         $selectedCustomerId = $request->input('customer_id');
+        $platforms = config('project_types.platforms');
+        $domains = config('project_types.domains');
 
-        return view('dashboard.client-projects.create', compact('customers', 'statuses', 'selectedCustomerId'));
+        return view('dashboard.client-projects.create', compact('customers', 'statuses', 'selectedCustomerId', 'platforms', 'domains'));
     }
 
     public function store(Request $request): RedirectResponse
     {
+        $platformValues = array_column(config('project_types.platforms'), 'value');
+        $domainValues   = array_column(config('project_types.domains'), 'value');
+
         $validated = $request->validate([
             'customer_id' => ['required', 'exists:customers,id'],
-            'title' => ['required', 'string', 'max:255'],
-            'status' => ['required', Rule::enum(ClientProjectStatus::class)],
-            'type' => ['nullable', 'string', 'max:255'],
+            'title'       => ['required', 'string', 'max:255'],
+            'status'      => ['required', Rule::enum(ClientProjectStatus::class)],
+            'platform'    => ['nullable', 'string', Rule::in($platformValues)],
+            'domain'      => ['nullable', 'string', Rule::in($domainValues)],
             'description' => ['nullable', 'string'],
-            'start_date' => ['nullable', 'date'],
-            'deadline' => ['nullable', 'date'],
+            'start_date'  => ['nullable', 'date'],
+            'deadline'    => ['nullable', 'date'],
         ]);
 
         $clientProject = ClientProject::create($validated);
@@ -74,8 +80,10 @@ class ClientProjectController extends Controller
         $clientProject->load(['customer', 'invoices']);
         $customers = Customer::orderBy('name')->get();
         $statuses = ClientProjectStatus::cases();
+        $platforms = config('project_types.platforms');
+        $domains = config('project_types.domains');
 
-        return view('dashboard.client-projects.edit', compact('clientProject', 'customers', 'statuses'));
+        return view('dashboard.client-projects.edit', compact('clientProject', 'customers', 'statuses', 'platforms', 'domains'));
     }
 
     public function update(Request $request, ClientProject $clientProject): RedirectResponse
@@ -86,14 +94,18 @@ class ClientProjectController extends Controller
                 ->with('info', 'لا يمكن تعديل مشروع ملغي.');
         }
 
+        $platformValues = array_column(config('project_types.platforms'), 'value');
+        $domainValues   = array_column(config('project_types.domains'), 'value');
+
         $validated = $request->validate([
             'customer_id' => ['required', 'exists:customers,id'],
-            'title' => ['required', 'string', 'max:255'],
-            'status' => ['required', Rule::enum(ClientProjectStatus::class)],
-            'type' => ['nullable', 'string', 'max:255'],
+            'title'       => ['required', 'string', 'max:255'],
+            'status'      => ['required', Rule::enum(ClientProjectStatus::class)],
+            'platform'    => ['nullable', 'string', Rule::in($platformValues)],
+            'domain'      => ['nullable', 'string', Rule::in($domainValues)],
             'description' => ['nullable', 'string'],
-            'start_date' => ['nullable', 'date'],
-            'deadline' => ['nullable', 'date'],
+            'start_date'  => ['nullable', 'date'],
+            'deadline'    => ['nullable', 'date'],
         ]);
 
         $clientProject->update($validated);
