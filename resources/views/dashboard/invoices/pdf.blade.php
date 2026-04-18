@@ -3,125 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <style>
-@page {
-    background-color: #1c1c1e;
-}
 body {
-    background-color: #1c1c1e;
-    color: #ffffff;
+    color: #1c1c1e;
     font-family: 'cairo', sans-serif;
     font-size: 11px;
     line-height: 1.5;
 }
 
-.header-table { width: 100%; margin-bottom: 28px; }
+.header-table { width: 100%; margin-bottom: 44px; }
 .header-table td { vertical-align: top; }
 .workspace-name {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
-    color: #ffffff;
+    color: #1c1c1e;
 }
 .workspace-email {
     font-size: 10px;
-    color: #9a9a9f;
-    margin-top: 3px;
+    color: #888888;
+    margin-top: 4px;
 }
 .invoice-title-ar {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
-    color: #ffffff;
+    color: #1c1c1e;
     text-align: right;
 }
 .invoice-label-en {
     font-size: 11px;
-    color: #9a9a9f;
+    color: #888888;
     text-align: right;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 .invoice-number {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
-    color: #ffffff;
+    color: #1c1c1e;
     text-align: right;
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
-.meta-table { width: 100%; margin-bottom: 22px; }
-.meta-table td { vertical-align: top; padding: 6px 0; }
+.meta-table { width: 100%; margin-bottom: 40px; }
+.meta-table td { vertical-align: top; padding: 12px 0; }
 .meta-label {
     font-size: 10px;
-    color: #9a9a9f;
+    color: #888888;
     letter-spacing: 0.3px;
 }
 .meta-value {
     font-size: 14px;
     font-weight: bold;
-    color: #ffffff;
-    margin-top: 4px;
+    color: #1c1c1e;
+    margin-top: 6px;
 }
 .meta-sub {
     font-size: 11px;
-    color: #c8c8cc;
-    margin-top: 1px;
+    color: #555555;
+    margin-top: 2px;
 }
 
 .items-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 18px;
-    border: 1px solid #3a3a3d;
+    margin-bottom: 28px;
+    border: 1px solid #e0e0e0;
 }
-.items-table thead tr { background-color: #252528; }
+.items-table thead tr { background-color: #f5f5f7; }
 .items-table th {
-    padding: 10px 14px;
+    padding: 14px 16px;
     font-size: 10px;
     font-weight: bold;
-    color: #9a9a9f;
+    color: #555555;
     letter-spacing: 0.3px;
-    border-bottom: 1px solid #3a3a3d;
+    border-bottom: 1px solid #e0e0e0;
 }
 .items-table td {
-    padding: 14px;
-    color: #e5e5e7;
+    padding: 20px 16px;
+    color: #222222;
     vertical-align: top;
     font-size: 11px;
 }
 .items-table td.amount {
     text-align: right;
     font-weight: bold;
-    color: #ffffff;
+    color: #1c1c1e;
 }
-.items-table td.currency { text-align: center; color: #c8c8cc; }
+.items-table td.currency { text-align: center; color: #666666; }
 
 .summary-table {
     width: 70%;
     margin-left: 30%;
     border-collapse: collapse;
-    margin-bottom: 28px;
+    margin-bottom: 44px;
 }
-.summary-table td { padding: 6px 0; font-size: 11px; }
+.summary-table td { padding: 10px 0; font-size: 11px; }
 .summary-table td.label {
-    color: #c8c8cc;
+    color: #666666;
     text-align: right;
-    padding-right: 18px;
+    padding-right: 20px;
 }
 .summary-table td.value {
     text-align: right;
-    color: #ffffff;
+    color: #1c1c1e;
     font-weight: bold;
 }
 .summary-total td {
-    padding-top: 10px;
-    border-top: 1px solid #3a3a3d;
-    font-size: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 15px;
     font-weight: bold;
-    color: #ffffff;
+    color: #1c1c1e;
 }
 
 .footer-divider {
     border: none;
-    border-top: 1px solid #3a3a3d;
-    margin: 18px 0 24px 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 36px 0 24px 0;
 }
 .footer-table {
     width: 100%;
@@ -129,27 +125,26 @@ body {
 .footer-table td { vertical-align: top; }
 .footer-label {
     font-size: 10px;
-    color: #9a9a9f;
+    color: #888888;
     letter-spacing: 0.3px;
 }
 .footer-value {
     font-size: 11px;
-    color: #e5e5e7;
+    color: #333333;
     margin-top: 6px;
     font-style: italic;
 }
 .status-badge {
     display: inline-block;
-    padding: 5px 16px;
+    padding: 6px 18px;
     border-radius: 20px;
     font-size: 11px;
     font-weight: bold;
-    margin-top: 8px;
 }
-.status-unpaid  { background-color: #3a1f1f; color: #fca5a5; border: 1px solid #7f1d1d; }
-.status-paid    { background-color: #15351f; color: #86efac; border: 1px solid #166534; }
-.status-partial { background-color: #3a2a0a; color: #fcd34d; border: 1px solid #78350f; }
-.status-overdue { background-color: #3a1f1f; color: #fca5a5; border: 1px solid #7f1d1d; }
+.status-unpaid  { background-color: #fee2e2; color: #b91c1c; }
+.status-paid    { background-color: #dcfce7; color: #166534; }
+.status-partial { background-color: #fef3c7; color: #92400e; }
+.status-overdue { background-color: #fee2e2; color: #b91c1c; }
 </style>
 </head>
 <body>
@@ -230,7 +225,7 @@ body {
 <table class="footer-table">
     <tr>
         <td width="60%">
-            <p class="footer-label" style="margin:0 0 6px 0;">ملاحظات / NOTES</p>
+            <p class="footer-label" style="margin:0 0 8px 0;">ملاحظات / NOTES</p>
             <p class="footer-value" style="margin:0;">{{ $invoice->notes ?: '—' }}</p>
         </td>
         <td width="40%" style="text-align:right;">
@@ -247,10 +242,10 @@ body {
                         : ($invoice->isOverdue() ? 'Overdue / متأخرة' : 'Unpaid / غير مدفوعة'));
             @endphp
             <table style="width:100%; border-collapse:collapse;">
-                <tr><td style="text-align:right; padding:0 0 10px 0;"><span class="footer-label">الحالة / STATUS</span></td></tr>
+                <tr><td style="text-align:right; padding:0 0 12px 0;"><span class="footer-label">الحالة / STATUS</span></td></tr>
                 <tr><td style="text-align:right; padding:0;"><span class="status-badge {{ $statusClass }}">{{ $statusLabel }}</span></td></tr>
                 @if($invoice->paid_at)
-                <tr><td style="text-align:right; padding:8px 0 0 0; font-size:9px; color:#9a9a9f;">Paid on {{ $invoice->paid_at->format('d/m/Y') }}</td></tr>
+                <tr><td style="text-align:right; padding:10px 0 0 0; font-size:9px; color:#888888;">Paid on {{ $invoice->paid_at->format('d/m/Y') }}</td></tr>
                 @endif
             </table>
         </td>
