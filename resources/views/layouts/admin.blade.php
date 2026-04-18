@@ -75,6 +75,15 @@
                     <x-heroicon-o-clipboard-document-list class="w-5 h-5 ml-3" />
                     مشاريع العملاء
                 </a>
+
+                <div class="mt-6 px-6">
+                    <p class="text-xs font-semibold text-gray-400 tracking-wider">النظام</p>
+                </div>
+
+                <a href="{{ route('dashboard.audit-logs.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('dashboard.audit-logs.*') ? 'bg-gray-700 text-white' : '' }}">
+                    <x-heroicon-o-clipboard-document-check class="w-5 h-5 ml-3" />
+                    سجل الأحداث
+                </a>
             </nav>
         </aside>
 

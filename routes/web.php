@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\InvoiceController;
 use App\Http\Controllers\Dashboard\NoteController;
 use App\Http\Controllers\Dashboard\PortfolioProjectController;
 use App\Http\Controllers\Dashboard\ServiceController;
+use App\Http\Controllers\Dashboard\AuditLogController;
 use App\Http\Controllers\Dashboard\TestimonialController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LandingController;
@@ -64,6 +65,9 @@ Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(functi
     Route::post('/client-projects/{clientProject}/files', [ClientProjectFileController::class, 'store'])->name('client-projects.files.store');
     Route::get('/client-projects/{clientProject}/files/{file}/download', [ClientProjectFileController::class, 'download'])->name('client-projects.files.download');
     Route::delete('/client-projects/{clientProject}/files/{file}', [ClientProjectFileController::class, 'destroy'])->name('client-projects.files.destroy');
+
+    // Audit Log
+    Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit-logs.index');
 
     // CRM - Invoices (nested under client projects)
     Route::get('/client-projects/{client_project}/invoices/create', [InvoiceController::class, 'create'])->name('client-projects.invoices.create');

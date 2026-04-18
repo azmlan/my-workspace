@@ -12,13 +12,13 @@ Add a `canceled` option to the project status field. When selected, a required *
 
 ---
 
-## 3. Client-Project File Attachments
+## 3. ✅ Client-Project File Attachments
 
 Allow files to be uploaded and associated directly with a client-project. Supported formats should include `.docx`, `.xlsx`, `.pdf`, and image files (`.png`, `.jpg`, etc.). This enables project analysis documents, research exports, and visual references to be stored alongside the project record rather than managed externally.
 
 ---
 
-## 4. Searchable Project Type Select with Free-Text Fallback
+## 4. ✅  Searchable Project Type Select with Free-Text Fallback
 
 Replace the current project type input with a **searchable select list**. The list should support live filtering as the user types. An **"Other"** option at the end of the list should reveal a free-text input, allowing custom project types to be entered when no existing option applies.
 
