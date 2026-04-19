@@ -48,7 +48,7 @@ class PortfolioProjectController extends Controller
         }
 
         return redirect()
-            ->route('dashboard.portfolio-projects.index')
+            ->route('backstage.portfolio-projects.index')
             ->with('success', 'Project created successfully.');
     }
 
@@ -86,7 +86,7 @@ class PortfolioProjectController extends Controller
         }
 
         return redirect()
-            ->route('dashboard.portfolio-projects.index')
+            ->route('backstage.portfolio-projects.index')
             ->with('success', 'Project updated successfully.');
     }
 
@@ -95,7 +95,7 @@ class PortfolioProjectController extends Controller
         $portfolioProject->delete();
 
         return redirect()
-            ->route('dashboard.portfolio-projects.index')
+            ->route('backstage.portfolio-projects.index')
             ->with('success', 'Project deleted successfully.');
     }
 }

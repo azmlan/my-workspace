@@ -6,7 +6,7 @@
 <div x-data="{ showDeleteModal: false, deleteId: null, deleteTitle: '' }">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-900">المشاريع</h1>
-        <a href="{{ route('dashboard.portfolio-projects.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
+        <a href="{{ route('backstage.portfolio-projects.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
             إضافة مشروع جديد
         </a>
     </div>
@@ -61,14 +61,14 @@
                             {{ $project->sort_order }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
-                            <a href="{{ route('dashboard.portfolio-projects.edit', $project) }}" class="text-blue-600 hover:text-blue-900 ml-3">تعديل</a>
+                            <a href="{{ route('backstage.portfolio-projects.edit', $project) }}" class="text-blue-600 hover:text-blue-900 ml-3">تعديل</a>
                             <button type="button" @click="showDeleteModal = true; deleteId = {{ $project->id }}; deleteTitle = '{{ addslashes($project->title) }}'" class="text-red-600 hover:text-red-900">حذف</button>
                         </td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                            لا يوجد مشاريع. <a href="{{ route('dashboard.portfolio-projects.create') }}" class="text-blue-600 hover:text-blue-800">إنشاء مشروع جديد</a>.
+                            لا يوجد مشاريع. <a href="{{ route('backstage.portfolio-projects.create') }}" class="text-blue-600 hover:text-blue-800">إنشاء مشروع جديد</a>.
                         </td>
                     </tr>
                 @endforelse
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <form :action="'{{ route('dashboard.portfolio-projects.index') }}/' + deleteId" method="POST" class="inline">
+                    <form :action="'{{ route('backstage.portfolio-projects.index') }}/' + deleteId" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mr-3 sm:w-auto sm:text-sm">

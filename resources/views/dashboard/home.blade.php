@@ -83,7 +83,7 @@
                                 @foreach($recentCustomers as $customer)
                                     <tr>
                                         <td class="px-4 py-3 whitespace-nowrap">
-                                            <a href="{{ route('dashboard.customers.show', $customer) }}" class="text-blue-600 hover:text-blue-800 font-medium">
+                                            <a href="{{ route('backstage.customers.show', $customer) }}" class="text-blue-600 hover:text-blue-800 font-medium">
                                                 {{ $customer->name }}
                                             </a>
                                         </td>

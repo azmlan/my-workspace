@@ -6,7 +6,7 @@
 <div x-data="{ showDeleteModal: false, deleteId: null, deleteTitle: '' }">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-900">الخدمات</h1>
-        <a href="{{ route('dashboard.services.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
+        <a href="{{ route('backstage.services.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
             إضافة خدمة جديدة
         </a>
     </div>
@@ -46,14 +46,14 @@
                             {{ $service->sort_order }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
-                            <a href="{{ route('dashboard.services.edit', $service) }}" class="text-blue-600 hover:text-blue-900 ml-3">تعديل</a>
+                            <a href="{{ route('backstage.services.edit', $service) }}" class="text-blue-600 hover:text-blue-900 ml-3">تعديل</a>
                             <button type="button" @click="showDeleteModal = true; deleteId = {{ $service->id }}; deleteTitle = '{{ addslashes($service->title) }}'" class="text-red-600 hover:text-red-900">حذف</button>
                         </td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                            لا يوجد خدمات. <a href="{{ route('dashboard.services.create') }}" class="text-blue-600 hover:text-blue-800">إنشاء خدمة جديدة</a>.
+                            لا يوجد خدمات. <a href="{{ route('backstage.services.create') }}" class="text-blue-600 hover:text-blue-800">إنشاء خدمة جديدة</a>.
                         </td>
                     </tr>
                 @endforelse
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <form :action="'{{ route('dashboard.services.index') }}/' + deleteId" method="POST" class="inline">
+                    <form :action="'{{ route('backstage.services.index') }}/' + deleteId" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mr-3 sm:w-auto sm:text-sm">

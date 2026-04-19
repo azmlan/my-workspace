@@ -6,21 +6,21 @@
 <div x-data="{ showDeleteModal: false, deleteId: null, deleteName: '' }">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-900">العملاء</h1>
-        <a href="{{ route('dashboard.customers.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
+        <a href="{{ route('backstage.customers.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
             إضافة عميل جديد
         </a>
     </div>
 
     <!-- Search -->
     <div class="mb-6">
-        <form method="GET" action="{{ route('dashboard.customers.index') }}" class="flex gap-4">
+        <form method="GET" action="{{ route('backstage.customers.index') }}" class="flex gap-4">
             <input type="text" name="search" value="{{ request('search') }}" placeholder="بحث بالاسم أو البريد الإلكتروني..."
                 class="flex-1 max-w-md rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
             <button type="submit" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md">
                 بحث
             </button>
             @if(request('search'))
-                <a href="{{ route('dashboard.customers.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md">
+                <a href="{{ route('backstage.customers.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md">
                     مسح
                 </a>
             @endif
@@ -44,7 +44,7 @@
                 @forelse($customers as $customer)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <a href="{{ route('dashboard.customers.show', $customer) }}" class="text-sm font-medium text-blue-600 hover:text-blue-800">
+                            <a href="{{ route('backstage.customers.show', $customer) }}" class="text-sm font-medium text-blue-600 hover:text-blue-800">
                                 {{ $customer->name }}
                             </a>
                         </td>
@@ -64,15 +64,15 @@
                             {{ $customer->created_at->format('M d, Y') }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
-                            <a href="{{ route('dashboard.customers.show', $customer) }}" class="text-gray-600 hover:text-gray-900 ml-3">عرض</a>
-                            <a href="{{ route('dashboard.customers.edit', $customer) }}" class="text-blue-600 hover:text-blue-900 ml-3">تعديل</a>
+                            <a href="{{ route('backstage.customers.show', $customer) }}" class="text-gray-600 hover:text-gray-900 ml-3">عرض</a>
+                            <a href="{{ route('backstage.customers.edit', $customer) }}" class="text-blue-600 hover:text-blue-900 ml-3">تعديل</a>
                             <button type="button" @click="showDeleteModal = true; deleteId = {{ $customer->id }}; deleteName = '{{ addslashes($customer->name) }}'" class="text-red-600 hover:text-red-900">حذف</button>
                         </td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="7" class="px-6 py-4 text-center text-gray-500">
-                            لا يوجد عملاء. <a href="{{ route('dashboard.customers.create') }}" class="text-blue-600 hover:text-blue-800">إضافة عميل</a>.
+                            لا يوجد عملاء. <a href="{{ route('backstage.customers.create') }}" class="text-blue-600 hover:text-blue-800">إضافة عميل</a>.
                         </td>
                     </tr>
                 @endforelse
@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <form :action="'{{ route('dashboard.customers.index') }}/' + deleteId" method="POST" class="inline">
+                    <form :action="'{{ route('backstage.customers.index') }}/' + deleteId" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mr-3 sm:w-auto sm:text-sm">

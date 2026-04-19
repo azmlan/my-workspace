@@ -46,7 +46,7 @@ class TestimonialController extends Controller
         }
 
         return redirect()
-            ->route('dashboard.testimonials.index')
+            ->route('backstage.testimonials.index')
             ->with('success', 'Testimonial created successfully.');
     }
 
@@ -82,7 +82,7 @@ class TestimonialController extends Controller
         }
 
         return redirect()
-            ->route('dashboard.testimonials.index')
+            ->route('backstage.testimonials.index')
             ->with('success', 'Testimonial updated successfully.');
     }
 
@@ -91,7 +91,7 @@ class TestimonialController extends Controller
         $testimonial->delete();
 
         return redirect()
-            ->route('dashboard.testimonials.index')
+            ->route('backstage.testimonials.index')
             ->with('success', 'Testimonial deleted successfully.');
     }
 }

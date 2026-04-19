@@ -6,7 +6,7 @@
 <div class="max-w-3xl">
     <h1 class="text-2xl font-bold text-gray-900 mb-6">إعدادات من انا</h1>
 
-    <form action="{{ route('dashboard.settings.about.update') }}" method="POST" enctype="multipart/form-data" class="bg-white shadow rounded-lg p-6 space-y-6">
+    <form action="{{ route('backstage.settings.about.update') }}" method="POST" enctype="multipart/form-data" class="bg-white shadow rounded-lg p-6 space-y-6">
         @csrf
         @method('PUT')
 

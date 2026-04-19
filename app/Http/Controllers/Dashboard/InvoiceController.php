@@ -22,7 +22,7 @@ class InvoiceController extends Controller
     {
         if ($clientProject->status === ClientProjectStatus::Cancelled) {
             return redirect()
-                ->route('dashboard.client-projects.show', $clientProject)
+                ->route('backstage.client-projects.show', $clientProject)
                 ->with('info', 'لا يمكن إضافة فواتير لمشروع ملغي.');
         }
 
@@ -33,7 +33,7 @@ class InvoiceController extends Controller
     {
         if ($clientProject->status === ClientProjectStatus::Cancelled) {
             return redirect()
-                ->route('dashboard.client-projects.show', $clientProject)
+                ->route('backstage.client-projects.show', $clientProject)
                 ->with('info', 'لا يمكن إضافة فواتير لمشروع ملغي.');
         }
 
@@ -62,7 +62,7 @@ class InvoiceController extends Controller
         });
 
         return redirect()
-            ->route('dashboard.client-projects.show', $clientProject)
+            ->route('backstage.client-projects.show', $clientProject)
             ->with('success', 'تم إنشاء الفاتورة بنجاح.');
     }
 
@@ -85,7 +85,7 @@ class InvoiceController extends Controller
         $invoice->update($validated);
 
         return redirect()
-            ->route('dashboard.client-projects.show', $clientProject)
+            ->route('backstage.client-projects.show', $clientProject)
             ->with('success', 'تم تحديث الفاتورة بنجاح.');
     }
 
@@ -94,7 +94,7 @@ class InvoiceController extends Controller
         $invoice->update(['status' => InvoiceStatus::Paid->value]);
 
         return redirect()
-            ->route('dashboard.client-projects.show', $clientProject)
+            ->route('backstage.client-projects.show', $clientProject)
             ->with('success', 'تم تحديد الفاتورة كمدفوعة.');
     }
 
@@ -121,7 +121,7 @@ class InvoiceController extends Controller
         $invoice->delete();
 
         return redirect()
-            ->route('dashboard.client-projects.show', $clientProject)
+            ->route('backstage.client-projects.show', $clientProject)
             ->with('success', 'تم حذف الفاتورة بنجاح.');
     }
 }

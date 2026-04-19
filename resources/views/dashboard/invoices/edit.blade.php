@@ -7,7 +7,7 @@
     <div class="max-w-2xl">
         <div class="flex justify-between items-start mb-6">
             <div class="flex items-center">
-                <a href="{{ route('dashboard.client-projects.show', $clientProject) }}" class="text-gray-600 hover:text-gray-900 ml-4">
+                <a href="{{ route('backstage.client-projects.show', $clientProject) }}" class="text-gray-600 hover:text-gray-900 ml-4">
                     <x-heroicon-o-arrow-right class="w-5 h-5" />
                 </a>
                 <div class="text-right">
@@ -40,7 +40,7 @@
 
         {{-- Action Buttons --}}
         <div class="flex gap-3 mb-6">
-            <a href="{{ route('dashboard.client-projects.invoices.pdf', [$clientProject, $invoice]) }}"
+            <a href="{{ route('backstage.client-projects.invoices.pdf', [$clientProject, $invoice]) }}"
                target="_blank"
                class="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 px-4 rounded-md text-sm">
                 <x-heroicon-o-arrow-down-tray class="w-4 h-4" />
@@ -48,7 +48,7 @@
             </a>
 
             @if($invoice->status !== \App\Enums\InvoiceStatus::Paid)
-                <form action="{{ route('dashboard.client-projects.invoices.mark-paid', [$clientProject, $invoice]) }}" method="POST">
+                <form action="{{ route('backstage.client-projects.invoices.mark-paid', [$clientProject, $invoice]) }}" method="POST">
                     @csrf
                     <button type="submit" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md text-sm">
                         <x-heroicon-o-check class="w-4 h-4" />
@@ -59,13 +59,13 @@
         </div>
 
         <div class="bg-white shadow rounded-lg p-6">
-            <form action="{{ route('dashboard.client-projects.invoices.update', [$clientProject, $invoice]) }}" method="POST">
+            <form action="{{ route('backstage.client-projects.invoices.update', [$clientProject, $invoice]) }}" method="POST">
                 @csrf
                 @method('PUT')
                 @include('dashboard.invoices._form')
 
                 <div class="mt-6 flex justify-end space-x-reverse space-x-3">
-                    <a href="{{ route('dashboard.client-projects.show', $clientProject) }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md">
+                    <a href="{{ route('backstage.client-projects.show', $clientProject) }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md">
                         إلغاء
                     </a>
                     <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <form action="{{ route('dashboard.client-projects.invoices.destroy', [$clientProject, $invoice]) }}" method="POST" class="inline">
+                    <form action="{{ route('backstage.client-projects.invoices.destroy', [$clientProject, $invoice]) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 sm:w-auto sm:text-sm">

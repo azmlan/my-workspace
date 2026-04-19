@@ -21,7 +21,7 @@
 <div>
     <div class="flex justify-between items-center mb-6">
         <div class="flex items-center">
-            <a href="{{ route('dashboard.customers.show', $clientProject->customer) }}" class="text-gray-600 hover:text-gray-900 ml-4">
+            <a href="{{ route('backstage.customers.show', $clientProject->customer) }}" class="text-gray-600 hover:text-gray-900 ml-4">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
@@ -30,10 +30,10 @@
         </div>
         @if($clientProject->status !== \App\Enums\ClientProjectStatus::Cancelled)
         <div class="flex gap-3">
-            <a href="{{ route('dashboard.client-projects.invoices.create', $clientProject) }}" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md">
+            <a href="{{ route('backstage.client-projects.invoices.create', $clientProject) }}" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md">
                 إضافة فاتورة
             </a>
-            <a href="{{ route('dashboard.client-projects.edit', $clientProject) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
+            <a href="{{ route('backstage.client-projects.edit', $clientProject) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
                 تعديل المشروع
             </a>
         </div>
@@ -47,7 +47,7 @@
             <div>
                 <dt class="text-sm font-medium text-gray-500">العميل</dt>
                 <dd class="mt-1 text-sm">
-                    <a href="{{ route('dashboard.customers.show', $clientProject->customer) }}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{{ route('backstage.customers.show', $clientProject->customer) }}" class="text-blue-600 hover:text-blue-800">
                         {{ $clientProject->customer->name }}
                     </a>
                 </dd>
@@ -113,7 +113,7 @@
                 <div class="mt-4">
                     <dt class="text-sm font-medium text-gray-500">المستند الداعم</dt>
                     <dd class="mt-1">
-                        <a href="{{ route('dashboard.client-projects.cancellation-document', $clientProject) }}" target="_blank"
+                        <a href="{{ route('backstage.client-projects.cancellation-document', $clientProject) }}" target="_blank"
                             class="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
@@ -144,11 +144,11 @@
                             <span class="text-xs text-gray-400 shrink-0">{{ $file->formattedSize() }}</span>
                         </div>
                         <div class="flex items-center gap-3 shrink-0 mr-4">
-                            <a href="{{ route('dashboard.client-projects.files.download', [$clientProject, $file]) }}"
+                            <a href="{{ route('backstage.client-projects.files.download', [$clientProject, $file]) }}"
                                 class="text-sm text-blue-600 hover:text-blue-800">تحميل</a>
                             @if($clientProject->status !== \App\Enums\ClientProjectStatus::Cancelled)
                                 <button type="button"
-                                    @click="deleteUrl = '{{ route('dashboard.client-projects.files.destroy', [$clientProject, $file]) }}'; showDeleteModal = true"
+                                    @click="deleteUrl = '{{ route('backstage.client-projects.files.destroy', [$clientProject, $file]) }}'; showDeleteModal = true"
                                     class="text-sm text-red-600 hover:text-red-800">حذف</button>
                             @endif
                         </div>
@@ -160,7 +160,7 @@
         @endif
 
         @if($clientProject->status !== \App\Enums\ClientProjectStatus::Cancelled)
-            <form action="{{ route('dashboard.client-projects.files.store', $clientProject) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('backstage.client-projects.files.store', $clientProject) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="flex items-center gap-3">
                     <input type="file" name="file" accept=".pdf,.docx,.xlsx,.png,.jpg,.jpeg,.gif,.webp" required
@@ -206,7 +206,7 @@
     <div class="bg-white shadow rounded-lg p-6">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-gray-900">الفواتير</h2>
-            <a href="{{ route('dashboard.client-projects.invoices.create', $clientProject) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1.5 px-3 rounded-md text-sm">
+            <a href="{{ route('backstage.client-projects.invoices.create', $clientProject) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1.5 px-3 rounded-md text-sm">
                 إضافة فاتورة
             </a>
         </div>
@@ -252,7 +252,7 @@
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap text-left text-sm font-medium">
                                     <div class="flex items-center gap-3 justify-end">
-                                        <a href="{{ route('dashboard.client-projects.invoices.pdf', [$clientProject, $invoice]) }}"
+                                        <a href="{{ route('backstage.client-projects.invoices.pdf', [$clientProject, $invoice]) }}"
                                            target="_blank"
                                            class="text-gray-600 hover:text-gray-900" title="تصدير PDF">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -260,14 +260,14 @@
                                             </svg>
                                         </a>
                                         @if($invoice->status !== \App\Enums\InvoiceStatus::Paid)
-                                            <form action="{{ route('dashboard.client-projects.invoices.mark-paid', [$clientProject, $invoice]) }}" method="POST" class="inline">
+                                            <form action="{{ route('backstage.client-projects.invoices.mark-paid', [$clientProject, $invoice]) }}" method="POST" class="inline">
                                                 @csrf
                                                 <button type="submit" class="text-green-600 hover:text-green-900 text-xs font-medium" title="تحديد كمدفوعة">
                                                     ✓ مدفوعة
                                                 </button>
                                             </form>
                                         @endif
-                                        <a href="{{ route('dashboard.client-projects.invoices.edit', [$clientProject, $invoice]) }}" class="text-blue-600 hover:text-blue-900">تعديل</a>
+                                        <a href="{{ route('backstage.client-projects.invoices.edit', [$clientProject, $invoice]) }}" class="text-blue-600 hover:text-blue-900">تعديل</a>
                                     </div>
                                 </td>
                             </tr>

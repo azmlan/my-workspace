@@ -31,7 +31,7 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 // Dashboard routes (protected)
-Route::middleware('auth')->prefix('dashboard')->name('dashboard.')->group(function () {
+Route::middleware('auth')->prefix('backstage')->name('backstage.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
 
     // Settings

@@ -39,7 +39,7 @@ class AboutSettingController extends Controller
         }
 
         return redirect()
-            ->route('dashboard.settings.about.edit')
+            ->route('backstage.settings.about.edit')
             ->with('success', 'About settings updated successfully.');
     }
 }

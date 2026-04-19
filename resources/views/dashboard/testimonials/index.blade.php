@@ -6,7 +6,7 @@
 <div x-data="{ showDeleteModal: false, deleteId: null, deleteName: '' }">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-900">آراء العملاء</h1>
-        <a href="{{ route('dashboard.testimonials.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
+        <a href="{{ route('backstage.testimonials.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
             إضافة رأي جديد
         </a>
     </div>
@@ -66,14 +66,14 @@
                             @endif
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
-                            <a href="{{ route('dashboard.testimonials.edit', $testimonial) }}" class="text-blue-600 hover:text-blue-900 ml-3">تعديل</a>
+                            <a href="{{ route('backstage.testimonials.edit', $testimonial) }}" class="text-blue-600 hover:text-blue-900 ml-3">تعديل</a>
                             <button type="button" @click="showDeleteModal = true; deleteId = {{ $testimonial->id }}; deleteName = '{{ addslashes($testimonial->client_name) }}'" class="text-red-600 hover:text-red-900">حذف</button>
                         </td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="4" class="px-6 py-4 text-center text-gray-500">
-                            لا يوجد آراء. <a href="{{ route('dashboard.testimonials.create') }}" class="text-blue-600 hover:text-blue-800">إنشاء رأي جديد</a>.
+                            لا يوجد آراء. <a href="{{ route('backstage.testimonials.create') }}" class="text-blue-600 hover:text-blue-800">إنشاء رأي جديد</a>.
                         </td>
                     </tr>
                 @endforelse
@@ -103,7 +103,7 @@
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <form :action="'{{ route('dashboard.testimonials.index') }}/' + deleteId" method="POST" class="inline">
+                    <form :action="'{{ route('backstage.testimonials.index') }}/' + deleteId" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mr-3 sm:w-auto sm:text-sm">

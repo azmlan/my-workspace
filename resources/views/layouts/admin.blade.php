@@ -28,7 +28,7 @@
             </div>
 
             <nav class="mt-6">
-                <a href="{{ route('dashboard.home') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('dashboard.home') ? 'bg-gray-700 text-white' : '' }}">
+                <a href="{{ route('backstage.home') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('backstage.home') ? 'bg-gray-700 text-white' : '' }}">
                     <x-heroicon-o-home class="w-5 h-5 ml-3" />
                     الرئيسية
                 </a>
@@ -37,27 +37,27 @@
                     <p class="text-xs font-semibold text-gray-400 tracking-wider">معرض الأعمال</p>
                 </div>
 
-                <a href="{{ route('dashboard.settings.hero.edit') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('dashboard.settings.hero.*') ? 'bg-gray-700 text-white' : '' }}">
+                <a href="{{ route('backstage.settings.hero.edit') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('backstage.settings.hero.*') ? 'bg-gray-700 text-white' : '' }}">
                     <x-heroicon-o-star class="w-5 h-5 ml-3" />
                     إعدادات الواجهة
                 </a>
 
-                <a href="{{ route('dashboard.settings.about.edit') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('dashboard.settings.about.*') ? 'bg-gray-700 text-white' : '' }}">
+                <a href="{{ route('backstage.settings.about.edit') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('backstage.settings.about.*') ? 'bg-gray-700 text-white' : '' }}">
                     <x-heroicon-o-user class="w-5 h-5 ml-3" />
                     إعدادات من انا
                 </a>
 
-                <a href="{{ route('dashboard.portfolio-projects.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('dashboard.portfolio-projects.*') ? 'bg-gray-700 text-white' : '' }}">
+                <a href="{{ route('backstage.portfolio-projects.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('backstage.portfolio-projects.*') ? 'bg-gray-700 text-white' : '' }}">
                     <x-heroicon-o-rectangle-stack class="w-5 h-5 ml-3" />
                     المشاريع
                 </a>
 
-                <a href="{{ route('dashboard.services.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('dashboard.services.*') ? 'bg-gray-700 text-white' : '' }}">
+                <a href="{{ route('backstage.services.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('backstage.services.*') ? 'bg-gray-700 text-white' : '' }}">
                     <x-heroicon-o-briefcase class="w-5 h-5 ml-3" />
                     الخدمات
                 </a>
 
-                <a href="{{ route('dashboard.testimonials.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('dashboard.testimonials.*') ? 'bg-gray-700 text-white' : '' }}">
+                <a href="{{ route('backstage.testimonials.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('backstage.testimonials.*') ? 'bg-gray-700 text-white' : '' }}">
                     <x-heroicon-o-chat-bubble-left-right class="w-5 h-5 ml-3" />
                     آراء العملاء
                 </a>
@@ -66,12 +66,12 @@
                     <p class="text-xs font-semibold text-gray-400 tracking-wider">إدارة العملاء</p>
                 </div>
 
-                <a href="{{ route('dashboard.customers.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('dashboard.customers.*') ? 'bg-gray-700 text-white' : '' }}">
+                <a href="{{ route('backstage.customers.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('backstage.customers.*') ? 'bg-gray-700 text-white' : '' }}">
                     <x-heroicon-o-users class="w-5 h-5 ml-3" />
                     العملاء
                 </a>
 
-                <a href="{{ route('dashboard.client-projects.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('dashboard.client-projects.*') ? 'bg-gray-700 text-white' : '' }}">
+                <a href="{{ route('backstage.client-projects.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('backstage.client-projects.*') ? 'bg-gray-700 text-white' : '' }}">
                     <x-heroicon-o-clipboard-document-list class="w-5 h-5 ml-3" />
                     مشاريع العملاء
                 </a>
@@ -80,7 +80,7 @@
                     <p class="text-xs font-semibold text-gray-400 tracking-wider">النظام</p>
                 </div>
 
-                <a href="{{ route('dashboard.audit-logs.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('dashboard.audit-logs.*') ? 'bg-gray-700 text-white' : '' }}">
+                <a href="{{ route('backstage.audit-logs.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white {{ request()->routeIs('backstage.audit-logs.*') ? 'bg-gray-700 text-white' : '' }}">
                     <x-heroicon-o-clipboard-document-check class="w-5 h-5 ml-3" />
                     سجل الأحداث
                 </a>

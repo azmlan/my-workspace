@@ -6,7 +6,7 @@
 <div x-data="{ showDeleteModal: false, showCancelModal: false }">
     <div class="flex justify-between items-center mb-6">
         <div class="flex items-center">
-            <a href="{{ route('dashboard.customers.show', $clientProject->customer) }}" class="text-gray-600 hover:text-gray-900 ml-4">
+            <a href="{{ route('backstage.customers.show', $clientProject->customer) }}" class="text-gray-600 hover:text-gray-900 ml-4">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
@@ -29,13 +29,13 @@
         <!-- Project Form -->
         <div class="lg:col-span-2">
             <div class="bg-white shadow rounded-lg p-6">
-                <form action="{{ route('dashboard.client-projects.update', $clientProject) }}" method="POST">
+                <form action="{{ route('backstage.client-projects.update', $clientProject) }}" method="POST">
                     @csrf
                     @method('PUT')
                     @include('dashboard.client-projects._form')
 
                     <div class="mt-6 flex justify-end space-x-3 space-x-reverse">
-                        <a href="{{ route('dashboard.customers.show', $clientProject->customer) }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md">
+                        <a href="{{ route('backstage.customers.show', $clientProject->customer) }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md">
                             إلغاء
                         </a>
                         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
@@ -51,7 +51,7 @@
             <div class="bg-white shadow rounded-lg p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-lg font-semibold text-gray-900">الفواتير</h2>
-                    <a href="{{ route('dashboard.client-projects.invoices.create', $clientProject) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1 px-3 rounded-md text-sm">
+                    <a href="{{ route('backstage.client-projects.invoices.create', $clientProject) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1 px-3 rounded-md text-sm">
                         إضافة فاتورة
                     </a>
                 </div>
@@ -74,7 +74,7 @@
                                             {{ $invoice->status->label() }}
                                         </span>
                                     </div>
-                                    <a href="{{ route('dashboard.client-projects.invoices.edit', [$clientProject, $invoice]) }}" class="text-blue-600 hover:text-blue-800 text-sm">
+                                    <a href="{{ route('backstage.client-projects.invoices.edit', [$clientProject, $invoice]) }}" class="text-blue-600 hover:text-blue-800 text-sm">
                                         تعديل
                                     </a>
                                 </div>
@@ -111,7 +111,7 @@
             <div x-show="showCancelModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-gray-500/75 transition-opacity" @click="showCancelModal = false"></div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
             <div x-show="showCancelModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="relative inline-block align-bottom bg-white rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <form action="{{ route('dashboard.client-projects.cancel', $clientProject) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('backstage.client-projects.cancel', $clientProject) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6">
                         <div class="flex items-start gap-4 mb-4">
@@ -176,7 +176,7 @@
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <form action="{{ route('dashboard.client-projects.destroy', $clientProject) }}" method="POST" class="inline">
+                    <form action="{{ route('backstage.client-projects.destroy', $clientProject) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mr-3 sm:w-auto sm:text-sm">

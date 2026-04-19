@@ -10,7 +10,7 @@
     </div>
 
     {{-- Filters --}}
-    <form method="GET" action="{{ route('dashboard.audit-logs.index') }}" class="bg-white rounded-lg shadow-sm p-4 mb-6 flex flex-wrap gap-4 items-end">
+    <form method="GET" action="{{ route('backstage.audit-logs.index') }}" class="bg-white rounded-lg shadow-sm p-4 mb-6 flex flex-wrap gap-4 items-end">
         <div>
             <label class="block text-xs font-medium text-gray-600 mb-1">النوع</label>
             <select name="subject_type" class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -36,7 +36,7 @@
                 تصفية
             </button>
             @if(request('subject_type') || request('action'))
-                <a href="{{ route('dashboard.audit-logs.index') }}" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-md text-sm hover:bg-gray-200">
+                <a href="{{ route('backstage.audit-logs.index') }}" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-md text-sm hover:bg-gray-200">
                     مسح
                 </a>
             @endif
@@ -80,8 +80,8 @@
                             $subjectUrl = null;
                             if ($log->action !== 'deleted') {
                                 $subjectUrl = match($log->subject_type) {
-                                    'ClientProject' => route('dashboard.client-projects.show', $log->subject_id),
-                                    'Customer'      => route('dashboard.customers.show', $log->subject_id),
+                                    'ClientProject' => route('backstage.client-projects.show', $log->subject_id),
+                                    'Customer'      => route('backstage.customers.show', $log->subject_id),
                                     default         => null,
                                 };
                             }

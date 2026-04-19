@@ -21,7 +21,7 @@ class NoteController extends Controller
         Note::create($validated);
 
         return redirect()
-            ->route('dashboard.customers.show', $customer)
+            ->route('backstage.customers.show', $customer)
             ->with('success', 'Note added successfully.');
     }
 
@@ -30,7 +30,7 @@ class NoteController extends Controller
         $note->delete();
 
         return redirect()
-            ->route('dashboard.customers.show', $customer)
+            ->route('backstage.customers.show', $customer)
             ->with('success', 'Note deleted successfully.');
     }
 }

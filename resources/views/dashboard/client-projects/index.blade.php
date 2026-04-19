@@ -6,14 +6,14 @@
 <div>
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-900">مشاريع العملاء</h1>
-        <a href="{{ route('dashboard.client-projects.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
+        <a href="{{ route('backstage.client-projects.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md">
             إضافة مشروع جديد
         </a>
     </div>
 
     <!-- Filter by Status -->
     <div class="mb-6">
-        <form method="GET" action="{{ route('dashboard.client-projects.index') }}" class="flex gap-4 items-center">
+        <form method="GET" action="{{ route('backstage.client-projects.index') }}" class="flex gap-4 items-center">
             <label for="status" class="text-sm font-medium text-gray-700">تصفية حسب الحالة:</label>
             <select name="status" id="status" onchange="this.form.submit()"
                 class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
@@ -25,7 +25,7 @@
                 @endforeach
             </select>
             @if(request('status'))
-                <a href="{{ route('dashboard.client-projects.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
+                <a href="{{ route('backstage.client-projects.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
                     إزالة التصفية
                 </a>
             @endif
@@ -50,7 +50,7 @@
                             {{ $project->title }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <a href="{{ route('dashboard.customers.show', $project->customer) }}" class="text-sm text-blue-600 hover:text-blue-800">
+                            <a href="{{ route('backstage.customers.show', $project->customer) }}" class="text-sm text-blue-600 hover:text-blue-800">
                                 {{ $project->customer->name }}
                             </a>
                         </td>
@@ -75,14 +75,14 @@
                             @endif
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
-                            <a href="{{ route('dashboard.client-projects.show', $project) }}" class="text-gray-600 hover:text-gray-900 ml-3">عرض</a>
-                            <a href="{{ route('dashboard.client-projects.edit', $project) }}" class="text-blue-600 hover:text-blue-900">تعديل</a>
+                            <a href="{{ route('backstage.client-projects.show', $project) }}" class="text-gray-600 hover:text-gray-900 ml-3">عرض</a>
+                            <a href="{{ route('backstage.client-projects.edit', $project) }}" class="text-blue-600 hover:text-blue-900">تعديل</a>
                         </td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                            لا يوجد مشاريع. <a href="{{ route('dashboard.client-projects.create') }}" class="text-blue-600 hover:text-blue-800">إضافة واحد</a>.
+                            لا يوجد مشاريع. <a href="{{ route('backstage.client-projects.create') }}" class="text-blue-600 hover:text-blue-800">إضافة واحد</a>.
                         </td>
                     </tr>
                 @endforelse

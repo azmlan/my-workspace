@@ -16,7 +16,7 @@ class ClientProjectFileController extends Controller
     {
         if ($clientProject->status === ClientProjectStatus::Cancelled) {
             return redirect()
-                ->route('dashboard.client-projects.show', $clientProject)
+                ->route('backstage.client-projects.show', $clientProject)
                 ->with('info', 'لا يمكن إضافة ملفات لمشروع ملغي.');
         }
 
@@ -35,7 +35,7 @@ class ClientProjectFileController extends Controller
         ]);
 
         return redirect()
-            ->route('dashboard.client-projects.show', $clientProject)
+            ->route('backstage.client-projects.show', $clientProject)
             ->with('success', 'تم رفع الملف بنجاح.');
     }
 
@@ -58,7 +58,7 @@ class ClientProjectFileController extends Controller
         $file->delete();
 
         return redirect()
-            ->route('dashboard.client-projects.show', $clientProject)
+            ->route('backstage.client-projects.show', $clientProject)
             ->with('success', 'تم حذف الملف.');
     }
 }

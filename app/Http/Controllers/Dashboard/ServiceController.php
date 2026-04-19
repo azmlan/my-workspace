@@ -37,7 +37,7 @@ class ServiceController extends Controller
         Service::create($validated);
 
         return redirect()
-            ->route('dashboard.services.index')
+            ->route('backstage.services.index')
             ->with('success', 'Service created successfully.');
     }
 
@@ -61,7 +61,7 @@ class ServiceController extends Controller
         $service->update($validated);
 
         return redirect()
-            ->route('dashboard.services.index')
+            ->route('backstage.services.index')
             ->with('success', 'Service updated successfully.');
     }
 
@@ -70,7 +70,7 @@ class ServiceController extends Controller
         $service->delete();
 
         return redirect()
-            ->route('dashboard.services.index')
+            ->route('backstage.services.index')
             ->with('success', 'Service deleted successfully.');
     }
 }

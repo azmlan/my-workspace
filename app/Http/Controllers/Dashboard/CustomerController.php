@@ -60,7 +60,7 @@ class CustomerController extends Controller
         $customer = Customer::create($validated);
 
         return redirect()
-            ->route('dashboard.customers.show', $customer)
+            ->route('backstage.customers.show', $customer)
             ->with('success', 'Customer created successfully.');
     }
 
@@ -82,7 +82,7 @@ class CustomerController extends Controller
         $customer->update($validated);
 
         return redirect()
-            ->route('dashboard.customers.show', $customer)
+            ->route('backstage.customers.show', $customer)
             ->with('success', 'Customer updated successfully.');
     }
 
@@ -91,7 +91,7 @@ class CustomerController extends Controller
         $customer->delete();
 
         return redirect()
-            ->route('dashboard.customers.index')
+            ->route('backstage.customers.index')
             ->with('success', 'Customer deleted successfully.');
     }
 }

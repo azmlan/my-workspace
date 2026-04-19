@@ -58,7 +58,7 @@ class ClientProjectController extends Controller
         $clientProject = ClientProject::create($validated);
 
         return redirect()
-            ->route('dashboard.client-projects.edit', $clientProject)
+            ->route('backstage.client-projects.edit', $clientProject)
             ->with('success', 'Project created successfully.');
     }
 
@@ -73,7 +73,7 @@ class ClientProjectController extends Controller
     {
         if ($clientProject->status === ClientProjectStatus::Cancelled) {
             return redirect()
-                ->route('dashboard.client-projects.show', $clientProject)
+                ->route('backstage.client-projects.show', $clientProject)
                 ->with('info', 'لا يمكن تعديل مشروع ملغي.');
         }
 
@@ -90,7 +90,7 @@ class ClientProjectController extends Controller
     {
         if ($clientProject->status === ClientProjectStatus::Cancelled) {
             return redirect()
-                ->route('dashboard.client-projects.show', $clientProject)
+                ->route('backstage.client-projects.show', $clientProject)
                 ->with('info', 'لا يمكن تعديل مشروع ملغي.');
         }
 
@@ -111,7 +111,7 @@ class ClientProjectController extends Controller
         $clientProject->update($validated);
 
         return redirect()
-            ->route('dashboard.client-projects.edit', $clientProject)
+            ->route('backstage.client-projects.edit', $clientProject)
             ->with('success', 'Project updated successfully.');
     }
 
@@ -135,7 +135,7 @@ class ClientProjectController extends Controller
         ]);
 
         return redirect()
-            ->route('dashboard.client-projects.show', $clientProject)
+            ->route('backstage.client-projects.show', $clientProject)
             ->with('success', 'تم إلغاء المشروع.');
     }
 
@@ -158,7 +158,7 @@ class ClientProjectController extends Controller
         $clientProject->delete();
 
         return redirect()
-            ->route('dashboard.customers.show', $customerId)
+            ->route('backstage.customers.show', $customerId)
             ->with('success', 'Project deleted successfully.');
     }
 }

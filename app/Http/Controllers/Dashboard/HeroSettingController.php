@@ -58,7 +58,7 @@ class HeroSettingController extends Controller
         }
 
         return redirect()
-            ->route('dashboard.settings.hero.edit')
+            ->route('backstage.settings.hero.edit')
             ->with('success', 'Hero settings updated successfully.');
     }
 }
