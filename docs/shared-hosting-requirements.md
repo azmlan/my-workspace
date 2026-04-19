@@ -26,7 +26,7 @@ The following extensions must be enabled in cPanel → Select PHP Version → Ex
 
 | Extension   | Why it's needed                        |
 |-------------|----------------------------------------|
-| pdo_mysql   | Database connection                    |
+| pdo_sqlite  | Database connection (SQLite)           |
 | mbstring    | String handling                        |
 | openssl     | Encryption, HTTPS, hashing             |
 | tokenizer   | Laravel internals                      |
@@ -53,12 +53,8 @@ APP_DEBUG=false           # MUST be false in production — leaks sensitive data
 APP_KEY=base64:...        # Must be set — run: php artisan key:generate
 APP_URL=https://yourdomain.com
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=your_db
-DB_USERNAME=your_user
-DB_PASSWORD=your_password
+DB_CONNECTION=sqlite
+# No DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD needed for SQLite
 
 CACHE_DRIVER=file         # No Redis on shared hosting
 SESSION_DRIVER=file       # No Redis on shared hosting

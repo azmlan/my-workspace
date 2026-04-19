@@ -16,7 +16,7 @@ Implementation phases → @docs/phases.md
 - `spatie/laravel-medialibrary:^11.0` — file/image uploads
 - `spatie/laravel-settings:^3.0` — Hero and About single-row settings
 - Blade + Tailwind CSS + Alpine.js + Vite
-- MySQL — `pdo_mysql` only, no PostgreSQL
+- SQLite — `pdo_sqlite`, single file at `database/database.sqlite`, used on both dev and production
 - Queue: `database` driver — see hosting constraints
 - No Filament. No Nova. No third-party admin panel package.
 
