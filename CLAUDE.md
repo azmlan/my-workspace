@@ -3,7 +3,7 @@
 ## Project
 Laravel 12 app with two surfaces:
 - **Public** — portfolio landing page, content from DB, no auth
-- **Private** — custom admin dashboard at `/dashboard`, single seeded admin, client CRM
+- **Private** — custom admin dashboard at `/backstage`, single seeded admin, client CRM
 
 Full schema → @docs/schema.md
 Hosting constraints → @docs/hosting-constraints.md
@@ -26,7 +26,7 @@ Implementation phases → @docs/phases.md
 The dashboard is a custom-built admin panel using standard Laravel + Blade + Tailwind + Alpine.js.
 
 Structure:
-- All admin routes under `/dashboard` prefix, protected by `auth` middleware
+- All admin routes under `/backstage` prefix, protected by `auth` middleware
 - Single admin layout: `resources/views/layouts/admin.blade.php` — sidebar + topbar
 - One controller per resource: `Dashboard\PortfolioProjectController`, `Dashboard\CustomerController`, etc.
 - Standard Laravel resource controllers (index, create, store, edit, update, destroy)
@@ -47,9 +47,9 @@ Never use the word "project" alone as a model or variable name.
 
 ## Auth
 - Single admin user, seeded from `.env` (`ADMIN_EMAIL`, `ADMIN_PASSWORD`)
-- Standard Laravel auth — login route at `/login`, redirects to `/dashboard`
+- Standard Laravel auth — login route at `/login`, redirects to `/backstage`
 - No public registration. No password reset. No guest access to dashboard.
-- Middleware `auth` on all `/dashboard/*` routes via route group
+- Middleware `auth` on all `/backstage/*` routes via route group
 
 ---
 
