@@ -126,7 +126,7 @@
                             <input
                                 type="text"
                                 x-model="row._categorySearch"
-                                @focus="row._categoryOpen = true"
+                                @click="row._categoryOpen = true"
                                 @input="row.category = ''; row._categoryOpen = true"
                                 placeholder="ابحث عن فئة..."
                                 autocomplete="off"
