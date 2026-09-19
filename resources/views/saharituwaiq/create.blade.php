@@ -106,19 +106,8 @@
                         </template>
 
                         <div>
-                            <label class="block text-xs text-gray-500 mb-1">اسم المنتج *</label>
-                            <input type="text" x-model="row.product_name" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="block text-xs text-gray-500 mb-1">SKU</label>
-                                <input type="text" x-model="row.sku" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-500 mb-1">الباركود</label>
-                                <input type="text" x-model="row.barcode" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
-                            </div>
+                            <label class="block text-xs text-gray-500 mb-1">الوكيل</label>
+                            <input type="text" x-model="row.agent" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
                         </div>
 
                         <div class="relative">
@@ -158,6 +147,16 @@
                             </div>
                         </div>
 
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">اسم المنتج *</label>
+                            <input type="text" x-model="row.product_name" @input="row.product_name = toEnglishDigits(row.product_name); saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">الكمية</label>
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" x-model="row.quantity" @input="row.quantity = sanitizeNumeric(row.quantity); saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
+                        </div>
+
                         <div class="grid grid-cols-2 gap-2">
                             <div>
                                 <label class="block text-xs text-gray-500 mb-1">اسم الخيار 1</label>
@@ -165,7 +164,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs text-gray-500 mb-1">قيمة الخيار 1</label>
-                                <input type="text" x-model="row.option_value_1" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
+                                <input type="text" x-model="row.option_value_1" @input="row.option_value_1 = toEnglishDigits(row.option_value_1); saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
                             </div>
                         </div>
 
@@ -176,7 +175,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs text-gray-500 mb-1">قيمة الخيار 2</label>
-                                <input type="text" x-model="row.option_value_2" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
+                                <input type="text" x-model="row.option_value_2" @input="row.option_value_2 = toEnglishDigits(row.option_value_2); saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
                             </div>
                         </div>
 
@@ -187,34 +186,39 @@
                             </div>
                             <div>
                                 <label class="block text-xs text-gray-500 mb-1">قيمة الخيار 3</label>
-                                <input type="text" x-model="row.option_value_3" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
+                                <input type="text" x-model="row.option_value_3" @input="row.option_value_3 = toEnglishDigits(row.option_value_3); saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
                             </div>
                         </div>
 
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">الضريبة</label>
+                            <select x-model="row.tax" @change="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base bg-white">
+                                <option value="">اختر</option>
+                                @foreach ($taxOptions as $tax)
+                                    <option value="{{ $tax->value }}">{{ $tax->value }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="block text-xs text-gray-500 mb-1">سعر التجزئة</label>
-                                <input type="text" inputmode="decimal" x-model="row.retail_price" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
-                            </div>
                             <div>
                                 <label class="block text-xs text-gray-500 mb-1">سعر التكلفة</label>
-                                <input type="text" inputmode="decimal" x-model="row.cost_price" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
+                                <input type="text" inputmode="decimal" x-model="row.cost_price" @input="row.cost_price = sanitizeNumeric(row.cost_price, true); saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1">سعر التجزئة</label>
+                                <input type="text" inputmode="decimal" x-model="row.retail_price" @input="row.retail_price = sanitizeNumeric(row.retail_price, true); saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="block text-xs text-gray-500 mb-1">الكمية</label>
-                                <input type="text" inputmode="numeric" x-model="row.quantity" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
+                                <label class="block text-xs text-gray-500 mb-1">SKU</label>
+                                <input type="text" x-model="row.sku" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
                             </div>
                             <div>
-                                <label class="block text-xs text-gray-500 mb-1">الضريبة</label>
-                                <select x-model="row.tax" @change="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base bg-white">
-                                    <option value="">اختر</option>
-                                    @foreach ($taxOptions as $tax)
-                                        <option value="{{ $tax->value }}">{{ $tax->value }}</option>
-                                    @endforeach
-                                </select>
+                                <label class="block text-xs text-gray-500 mb-1">الباركود</label>
+                                <input type="text" x-model="row.barcode" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
                             </div>
                         </div>
 
@@ -240,11 +244,6 @@
                                 </div>
                             </div>
                         </details>
-
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">الوكيل</label>
-                            <input type="text" x-model="row.agent" @input="saveDraft()" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-base">
-                        </div>
 
                         <div class="flex gap-2 pt-1">
                             <button @click="duplicateRow(index)" type="button" class="flex-1 text-sm bg-gray-100 text-gray-700 rounded-md py-2">تكرار الصف</button>
@@ -342,6 +341,31 @@
                     if (!this.rows.length) {
                         this.rows = [blankRow(null)];
                     }
+                },
+
+                toEnglishDigits(value) {
+                    if (!value) return value;
+                    const arabicIndic = '٠١٢٣٤٥٦٧٨٩';
+                    const easternArabicIndic = '۰۱۲۳۴۵۶۷۸۹';
+                    return value.replace(/[٠-٩۰-۹]/g, (digit) => {
+                        let index = arabicIndic.indexOf(digit);
+                        if (index === -1) index = easternArabicIndic.indexOf(digit);
+                        return index === -1 ? digit : String(index);
+                    });
+                },
+
+                sanitizeNumeric(value, allowDecimal = false) {
+                    let result = this.toEnglishDigits(value || '');
+                    if (allowDecimal) {
+                        result = result.replace(/[^0-9.]/g, '');
+                        const parts = result.split('.');
+                        if (parts.length > 2) {
+                            result = parts[0] + '.' + parts.slice(1).join('');
+                        }
+                    } else {
+                        result = result.replace(/[^0-9]/g, '');
+                    }
+                    return result;
                 },
 
                 filteredCategories(row) {
