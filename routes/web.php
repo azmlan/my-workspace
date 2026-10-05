@@ -80,22 +80,3 @@ Route::middleware('auth')->prefix('backstage')->name('backstage.')->group(functi
     Route::get('/client-projects/{client_project}/invoices/{invoice}/pdf', [InvoiceController::class, 'exportPdf'])->name('client-projects.invoices.pdf');
     Route::delete('/client-projects/{client_project}/invoices/{invoice}', [InvoiceController::class, 'destroy'])->name('client-projects.invoices.destroy');
 });
-
-// Saharituwaiq bulk product entry (public, no auth — walk-up tool for in-shop stock entry)
-Route::prefix('saharituwaiq')->name('saharituwaiq.')->group(function () {
-    Route::get('/', [EntryController::class, 'create'])->name('create');
-    Route::post('/', [EntryController::class, 'store'])->middleware('throttle:20,1')->name('store');
-    Route::get('/review', [EntryController::class, 'review'])->name('review');
-
-    // Categories (searchable list + bulk add)
-    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-    Route::get('/categories/json', [CategoryController::class, 'json'])->name('categories.json');
-    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-
-    Route::get('/export', [EntryController::class, 'export'])->name('export');
-    Route::get('/export-full', [EntryController::class, 'exportFull'])->name('export-full');
-    Route::get('/{entry}/edit', [EntryController::class, 'edit'])->name('edit');
-    Route::put('/{entry}', [EntryController::class, 'update'])->name('update');
-    Route::delete('/{entry}', [EntryController::class, 'destroy'])->name('destroy');
-});

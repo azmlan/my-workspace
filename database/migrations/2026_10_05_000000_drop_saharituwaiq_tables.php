@@ -8,15 +8,12 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->timestamps();
-        });
+        Schema::dropIfExists('entries');
+        Schema::dropIfExists('categories');
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        // Saharituwaiq feature was removed permanently; nothing to restore.
     }
 };
